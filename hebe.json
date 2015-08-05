@@ -1,0 +1,15 @@
+{
+  "project":"grav-plugin-sectionwidget",
+  "platforms":{
+    "grav":{
+      "nodes":{
+        "plugin":[
+          {
+            "source":"/",
+            "destination":"/user/plugins/sectionwidget"
+          }
+        ]
+      }
+    }
+  }
+}

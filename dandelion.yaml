@@ -1,0 +1,16 @@
+adapter: sftp
+host: ftp.aptly.io
+port: 21098
+username: 
+path: public_html/user/plugins/sectionwidget
+exclude:
+  - assets/screenshot.png
+  - assets/screenshot_annotated.odg
+  - assets/screenshot_annotated.png
+  - CHANGELOG.md
+  - dandelion.yaml
+  - .git/
+  - .gitignore
+  - hebe.json
+  - LICENSE
+  - README.md
