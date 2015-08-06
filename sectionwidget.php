@@ -37,13 +37,13 @@ class SectionWidgetPlugin extends Plugin
     const DEFAULT_CONTROLS = ['start', 'prev', 'next', 'last', 'fullmenu']; // full: show full whole page control
 
     /** Sections are by default recognized by this separator*/
-    const SEPARATOR_YAML = 'sep';
+    const SEPARATOR_YAML = 'marker';
     const DEFAULT_SEPARATOR   = '======';
 
     /** The section to show by default (0-based index)*/
     const INITIAL_SECTION_YAML = 'initial_section';
     const DEFAULT_INITIAL_SECTION = 0;               // 'all' also supported
-    const INITIAL_ALL_SECTIONS = 'all';
+    const INITIAL_ALL_SECTIONS = 'full';
 
     /** The prefix for the id of a div element wrapping each section*/
     const ID_SECTION_PREFIX = 'sw_section';
