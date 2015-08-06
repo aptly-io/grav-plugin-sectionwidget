@@ -13,11 +13,22 @@ bugs: https://github.com/aptly-io/grav-plugin-sectionmenu/issues
 license: MIT
 
 form:
-  validation: strict
+  validation: loose
   fields:
     enabled:
       type: toggle
       label: Plugin activation
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+
+    built_in_css:
+      type: toggle
+      label: "Use built-in CSS"
       highlight: 1
       default: 1
       options:
@@ -25,3 +36,26 @@ form:
         0: Disabled
       validate:
         type: bool
+      help: "Switch of to use your own variant instead of sectionwidget.css"
+
+    marker:
+      type: text
+      label: "Markdown token"
+      placeholder: ======
+      size: small
+      help: "Token to recognize a section's start and end in markdown content"
+
+    controls:
+      type: selectize
+      label: "Widget's controls"
+      size: medium
+      help: "Ordered, comma separated list of keywords: first, last, prev, next, fullmenu. These are the created controls"
+      validate:
+        type: commalist
+
+    initial:
+      type: text
+      label: "Initial section"
+      placeholder: full
+      size: small
+      help: "What section to show after loading the page (use full for all sections)"
