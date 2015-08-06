@@ -19,9 +19,12 @@ Your reasons for splitting content into sections might be:
 * ...
 
 These screen shots gives you an idea how this might look like. The page is opened with all sections visible.
+
 <a name="screenshot">
 ![Screen shot of the SectionWidget Plugin in action](assets/screenshot1.png "GroupWidget screen shot")
+
 Here section two is selected. The pull down menu highlights the active section.
+
 ![Screen shot of the SectionWidget Plugin in action](assets/screenshot2.png "GroupWidget screen shot")
 </a>
 
