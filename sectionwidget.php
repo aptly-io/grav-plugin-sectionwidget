@@ -132,12 +132,6 @@ class SectionWidgetPlugin extends Plugin
             $defaults = array_merge($defaults, $page->header()->markdown);
         }
 
-        // pages.markdown_extra is deprecated, but still check it...
-        if (isset($page->markdown_extra) || $config->get('system.pages.markdown_extra') !== null) {
-            $defaults['extra'] = $this->markdown_extra ?: $config->get('system.pages.markdown_extra');
-        }
-
-        // Initialize the preferred variant of Parsedown
         if ($defaults['extra']) {
             $parsedown = new ParsedownExtra($page, $defaults);
         } else {
