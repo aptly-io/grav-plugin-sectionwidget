@@ -2,15 +2,17 @@
 
 {## Render the group widget's navigation controls#}
 
-{## Several elements are manipulated from JS#}
-
-{{ dump(sectionwidget) }}
+{## Some elements are manipulated from JS#}
 
 {% if sectionwidget.menu|length > 0 %}
 
+    {% if not controls %}
+        {% set controls = sectionwidget.controls %}
+    {% endif %}
+
     <div class="dropdown">
 
-        {% for control in sectionwidget.controls %}
+        {% for control in controls %}
 
             {% if 'first' == control %}
                 <li class="sw_first_control">
@@ -19,7 +21,7 @@
                         {% else %}
                         <a>
                             {% endif %}
-                            <i class="fa fa-angle-double-left"></i>
+                            <i class="fa fa-2x fa-angle-double-left"></i>
                         </a>
                 </li>
             {% endif %}
@@ -31,7 +33,7 @@
                         {% else %}
                         <a>
                             {% endif %}
-                            <i class="fa fa-angle-left"></i>
+                            <i class="fa fa-2x fa-angle-left"></i>
                         </a>
                 </li>
             {% endif %}
@@ -68,7 +70,7 @@
                         {% else %}
                         <a>
                             {% endif %}
-                            <i class="fa fa-angle-right"></i>
+                            <i class="fa fa-2x fa-angle-right"></i>
                         </a>
                 </li>
             {% endif %}
@@ -80,7 +82,19 @@
                         {% else %}
                         <a>
                             {% endif %}
-                            <i class="fa fa-angle-double-right"></i>
+                            <i class="fa fa-2x fa-angle-double-right"></i>
+                        </a>
+                </li>
+            {% endif %}
+
+            {% if 'full' == control %}
+                <li class="sw_full_control">
+                    {% if sectionwidget.last %}
+                    <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ sectionwidget.full.id }});" title="{{ sectionwidget.full.title }}">
+                        {% else %}
+                        <a>
+                            {% endif %}
+                            <i class="fa fa-2x fa-map-o"></i>
                         </a>
                 </li>
             {% endif %}
