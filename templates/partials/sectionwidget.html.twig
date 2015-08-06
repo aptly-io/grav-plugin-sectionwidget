@@ -10,78 +10,82 @@
 
     <div class="dropdown">
 
-        {% if 'first' in sectionwidget.controls %}
-            <li class="sw_first_control">
-                {% if sectionwidget.first %}
+        {% for control in sectionwidget.controls %}
+
+            {% if 'first' == control %}
+                <li class="sw_first_control">
+                    {% if sectionwidget.first %}
                     <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ sectionwidget.first.id }});" title="{{ sectionwidget.first.title }}">
-                {% else %}
-                    <a>
-                {% endif %}
-                        <i class="fa fa-angle-double-left"></i>
-                    </a>
-            </li>
-        {% endif %}
+                        {% else %}
+                        <a>
+                            {% endif %}
+                            <i class="fa fa-angle-double-left"></i>
+                        </a>
+                </li>
+            {% endif %}
 
-        {% if 'prev' in sectionwidget.controls %}
-            <li class="sw_prev_control">
-                {% if sectionwidget.prev %}
+            {% if 'prev' == control %}
+                <li class="sw_prev_control">
+                    {% if sectionwidget.prev %}
                     <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ sectionwidget.prev.id }});" title="{{ sectionwidget.prev.title }}">
-                {% else %}
-                    <a>
-                {% endif %}
-                        <i class="fa fa-angle-left"></i>
+                        {% else %}
+                        <a>
+                            {% endif %}
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                </li>
+            {% endif %}
+
+            {% if 'fullmenu' == control %}
+                <li class="sw_menu_control">
+
+                    <a>{{ sectionwidget.current.title }}
+                        {% if 'fullmenu' in sectionwidget.controls %} <i class="fa fa-caret-down"></i>{% endif %}
                     </a>
-            </li>
-        {% endif %}
 
-        {% if 'label' in sectionwidget.controls or 'fullmenu' in sectionwidget.controls %}
-            <li class="sw_menu_control">
-
-                <a>{{ sectionwidget.current.title }}
-                    {% if 'fullmenu' in sectionwidget.controls %} <i class="fa fa-caret-down"></i>{% endif %}
-                </a>
-
-                {% if 'fullmenu' in sectionwidget.controls %}
-                    <ul class="dropdown-menu">
-                        {% for item in sectionwidget.menu %}
+                    {% if 'fullmenu' in sectionwidget.controls %}
+                        <ul class="dropdown-menu">
+                            {% for item in sectionwidget.menu %}
                                 <li class="dropdown-menu-item">
                                     {% if item.id == sectionwidget.current.id %}
-                                        <a href="javascript:;" class="active" onclick="sectionwidgetHandleSelection({{ item.id }});">
-                                    {% else %}
+                                    <a href="javascript:;" class="active" onclick="sectionwidgetHandleSelection({{ item.id }});">
+                                        {% else %}
                                         <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ item.id }});">
-                                    {% endif %}
-                                        {{ item.title }}
+                                            {% endif %}
+                                            {{ item.title }}
                                         </a>
                                 </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endif %}
 
-        {% if 'next' in sectionwidget.controls %}
-            <li class="sw_next_control">
-                {% if sectionwidget.next %}
+            {% if 'next' == control %}
+                <li class="sw_next_control">
+                    {% if sectionwidget.next %}
                     <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ sectionwidget.next.id }});" title="{{ sectionwidget.next.title }}">
-                {% else %}
-                    <a>
-                {% endif %}
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-            </li>
-        {% endif %}
+                        {% else %}
+                        <a>
+                            {% endif %}
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                </li>
+            {% endif %}
 
-        {% if 'last' in sectionwidget.controls %}
-            <li class="sw_last_control">
-                {% if sectionwidget.last %}
+            {% if 'last' == control %}
+                <li class="sw_last_control">
+                    {% if sectionwidget.last %}
                     <a href="javascript:;" onclick="sectionwidgetHandleSelection({{ sectionwidget.last.id }});" title="{{ sectionwidget.last.title }}">
-                {% else %}
-                    <a>
-                {% endif %}
-                        <i class="fa fa-angle-double-right"></i>
-                    </a>
-            </li>
-        {% endif %}
+                        {% else %}
+                        <a>
+                            {% endif %}
+                            <i class="fa fa-angle-double-right"></i>
+                        </a>
+                </li>
+            {% endif %}
+
+        {% endfor %}
 
     </div>
 {% endif %}

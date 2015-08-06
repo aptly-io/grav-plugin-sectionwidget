@@ -1,4 +1,4 @@
 enabled: true                                        # enabled by default
 built_in_css: true                                   # use the build-in css
-controls: [ first, last, prev, next, fullmenu]       # controls to show
+controls: [ first, prev, fullmenu, next, last]       # controls to show
 initial_section: 0                                   # supports full as well (whole page visible)
