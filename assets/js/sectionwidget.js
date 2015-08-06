@@ -18,7 +18,12 @@ function sectionwidgetHandleSelection(sectionId)
     case sectionwidgetPREV_IDX_ID:
         sectionId = sectionwidgetId - 1; break;
     case sectionwidgetNEXT_IDX_ID:
-        sectionId = sectionwidgetId + 1; break;
+        if (sectionwidgetId < sectionwidgetInfo.length - 2) {
+            sectionId = sectionwidgetId + 1; // avoid 'next' into full page
+        } else {
+            return false;
+        }
+        break;
     case sectionwidgetALL_IDX_ID:
         sectionId = sectionwidgetInfo.length - 1; break;
     }
