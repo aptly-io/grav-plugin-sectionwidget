@@ -10,14 +10,13 @@
  * Licensed under MIT, see LICENSE.
  *
  * @package     SectionWidget
- * @version     0.1.0
+ * @version     0.1.1
  * @link        <https://github.com/aptly-io/grav-plugin-sectionwidget>
  * @author      Francis Meyvis <https://aptly.io/contact>
  * @copyright   2015, Francis Meyvis
  * @license     MIT <http://opensource.org/licenses/MIT>
  *
  * @todo have a page's active section in a cookie (to later open with the last read section)
- * @todo sectionwidget.html.twig could create controls according to the order in sectionwidget's header
  */
 
 namespace Grav\Plugin;     // use this namespace to avoids bin/gpm fails
@@ -54,6 +53,9 @@ class SectionWidgetPlugin extends Plugin
     const PREV_IDX_ID = -10;
     const NEXT_IDX_ID = -20;
     const FULL_IDX_ID = -30;
+
+
+    protected $items;
 
 
     /** Return a list of subscribed events*/
@@ -95,7 +97,7 @@ class SectionWidgetPlugin extends Plugin
     }
 
 
-    /** Setup the necessary assets and variables to build the widget*/
+    /** Setup the necessary assets to build the widget*/
     public function onTwigSiteVariables()
     {
         $page = $this->grav['page'];
@@ -145,9 +147,9 @@ class SectionWidgetPlugin extends Plugin
     /** Find all sections based on the section separator token*/
     private function findSections($content, $config)
     {
-        $sep = $config->get(SectionWidgetPlugin::SEPARATOR_YAML,
+        $marker = $config->get(SectionWidgetPlugin::SEPARATOR_YAML,
             SectionWidgetPlugin::DEFAULT_SEPARATOR);
-        $sep_regex = '~(<p>)?\s*' . $sep . '\s*(?P<title>.*)(?(1)</p>)~i';
+        $sep_regex = '~(<p>)?\s*' . $marker . '\s*(?P<title>.*)(?(1)</p>)~i';
 
         $sections = array();
         if (preg_match_all($sep_regex, $content, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
@@ -163,14 +165,14 @@ class SectionWidgetPlugin extends Plugin
                 $offs = $match[0][1];
                 $match_len = strlen($match[0][0]);
                 $sections[] = array('title' => $title,
-                                    'prefix' => false,
+                                    'is_section' => true,
                                     // skip the matched pattern inside the section
                                     'content' => substr($content, $offs + $match_len, $last_offs - $offs - $match_len));
                 $last_offs = $offs;
             }
             if (0 != $last_offs) {
                 // Some data in front of the first section
-                $sections[] = array('prefix' => true,
+                $sections[] = array('is_section' => false,
                                     'content' => substr($content, 0, $last_offs));
             }
         }
@@ -199,7 +201,7 @@ class SectionWidgetPlugin extends Plugin
             $h_regex = '~<[h][1-6][^<]*>(?P<title>[^<]*)</[h][1-6]>~i';
             $i = 0;
             foreach($sections as $section) {
-                if (!$section['prefix']) {
+                if ($section['is_section']) {
                     $title = $section['title'];
                     $offs = 0;
                     while (!$title) {
@@ -221,7 +223,7 @@ class SectionWidgetPlugin extends Plugin
 
 
     /** Set the twig variables now that the markdown content is searched for sections*/
-    private function process1($content, $config)
+    private function setupTwigVariables($content, $config)
     {
         $sections = $this->findSections($content, $config);
         $items = $this->findTitles($sections);
@@ -262,35 +264,27 @@ class SectionWidgetPlugin extends Plugin
             $vars['menu'] = $items;
 
             $this->grav['twig']->twig_vars['sectionwidget'] = $vars;
-
-            $this->enable([
-                'onPageContentProcessed' => ['onPageContentProcessed', 0]
-            ]);
         }
+
+        return $items;
     }
 
 
-    /**
-     * Find all sections to wrap these in their own div and have add an anchor
-     *
-     * The content looking into now holds all
-     *
-     * @todo have a page's active section in a cookie (to later open with the last read section)
-     */
-    private function process2($content, $config)
+    /** Find all sections to wrap these in their own div and have add an anchor*/
+    private function replaceMarkers($content, $config)
     {
+        // Find sections once more (other plugins might have changed the HTML)
         $sections = $this->findSections($content, $config);
-        $items = $this->findTitles($sections);
 
         $menu_idx = 0;
         $content_new = '';
         foreach($sections as $section) {
-            if ($section['prefix']) {
+            if (!$section['is_section']) {
                 $content_new .= $section['content'];
             } else {
-                $content_new .= '<div id="' . SectionWidgetPlugin::ID_SECTION_PREFIX . $items[$menu_idx]['id'];
+                $content_new .= '<div id="' . SectionWidgetPlugin::ID_SECTION_PREFIX . $this->items[$menu_idx]['id'];
                 $content_new .= '" class="' . SectionWidgetPlugin::CLASS_SECTION_HIDEABLE . '">';
-                $content_new .= '<a name="' . SectionWidgetPlugin::ID_SECTION_PREFIX . $items[$menu_idx]['id'] . '"></a>';
+                $content_new .= '<a name="' . SectionWidgetPlugin::ID_SECTION_PREFIX . $this->items[$menu_idx]['id'] . '"></a>';
                 $content_new .= $section['content'];
                 $content_new .= '</div>';
                 $menu_idx++;
@@ -301,29 +295,34 @@ class SectionWidgetPlugin extends Plugin
     }
 
 
+    /** Setup the necessary twig variables to build the widget*/
     public function onPageContentRaw(Event $event)
     {
         $page = $event['page'];
         $config = $this->mergeConfig($page);
 
-        if ($config->get('enabled', false)) {
-            $content = $this->processMarkdown($page);
-            $this->process1($content, $config);
+        // Convert markdown to HTML; that's easier to process
+        $content = $this->processMarkdown($page);
+        // Examine the content for its sections and get all menu items
+        $this->items = $this->setupTwigVariables($content, $config);
+        if (0 < count($this->items)) {
+            $this->enable([
+                'onPageContentProcessed' => ['onPageContentProcessed', 0]
+            ]);
         }
     }
 
 
+    /** Replace section markers, insert div wrappers and anchors*/
     public function onPageContentProcessed(Event $event)
     {
         $page = $event['page'];
         $config = $this->mergeConfig($page);
 
-        if ($config->get('enabled', false)) {
-            // get current rendered content
-            $content = $page->getRawContent();
-            // process the markers to recognize sections
-            $page->setRawContent($this->process2($content, $config));
-        }
+        // get current rendered content
+        $content = $page->getRawContent();
+        // process the markers to recognize sections
+        $page->setRawContent($this->replaceMarkers($content, $config));
     }
 
 }
