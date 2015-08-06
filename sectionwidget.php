@@ -77,7 +77,7 @@ class SectionWidgetPlugin extends Plugin
 
         } else {
 
-            if ($this->config->get('plugins.groupwidget.enabled')) {
+            if ($this->config->get('plugins.sectionwidget.enabled')) {
                 // if the plugin is activated, then subscribe to these additional events
                 $this->enable([
                     'onTwigTemplatePaths'    => ['onTwigTemplatePaths', 0],
