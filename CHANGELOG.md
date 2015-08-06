@@ -1,3 +1,9 @@
+# v0.1.2
+## 07/08/2015
+
+1. [](#improved)
+    * Updated screendumps of readme
+
 # v0.1.1
 ## 07/08/2015
 

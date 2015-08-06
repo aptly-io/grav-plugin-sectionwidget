@@ -1,5 +1,5 @@
 name: SectionWidget
-version: 0.1.1
+version: 0.1.2
 description: The **SectionWidget** plugin splits, at special markers, large content in sections. Only one section is visible at a time.
 icon: list-alt
 author:

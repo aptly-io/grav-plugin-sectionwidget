@@ -3,7 +3,7 @@
 ## About
 
 `SectionWidget` is a plugin for [**Grav**](http://getgrav.org).
-This readme describes version 0.1.1.
+This readme describes version 0.1.2.
 The plugin splits, with special _section marker_, large content into sections.
 The content of a section is up to the author.
 It creates a configurable HTML widget that lets one navigate to the first, previous, next or last section.
@@ -20,9 +20,9 @@ Your reasons for splitting content into sections might be:
 
 These screen shots gives you an idea how this might look like. The page is opened with all sections visible.
 <a name="screenshot">
-![Screen shot of the SectionWidget Plugin in action](assets/screenshot1_annotated.png "GroupWidget screen shot")
+![Screen shot of the SectionWidget Plugin in action](assets/screenshot1.png "GroupWidget screen shot")
 Here section two is selected. The pull down menu highlights the active section.
-![Screen shot of the SectionWidget Plugin in action](assets/screenshot2_annotated.png "GroupWidget screen shot")
+![Screen shot of the SectionWidget Plugin in action](assets/screenshot2.png "GroupWidget screen shot")
 </a>
 
 

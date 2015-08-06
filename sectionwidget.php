@@ -10,7 +10,7 @@
  * Licensed under MIT, see LICENSE.
  *
  * @package     SectionWidget
- * @version     0.1.1
+ * @version     0.1.2
  * @link        <https://github.com/aptly-io/grav-plugin-sectionwidget>
  * @author      Francis Meyvis <https://aptly.io/contact>
  * @copyright   2015, Francis Meyvis
