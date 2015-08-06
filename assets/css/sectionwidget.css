@@ -5,6 +5,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    list-style: none;         /* Remove list bullets */
 }
 
 .dropdown li {
