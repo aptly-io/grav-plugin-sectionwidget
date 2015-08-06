@@ -192,7 +192,7 @@ class SectionWidgetPlugin extends Plugin
 
 
     /** Create an array with titles and IDs for each section*/
-    private function findTitles($sections, $config)
+    private function findTitles($sections)
     {
         $items = array();
         if (0 < count($sections)) {
@@ -230,7 +230,7 @@ class SectionWidgetPlugin extends Plugin
     private function process1($content, $config)
     {
         $sections = $this->findSections($content, $config);
-        $items = $this->findTitles($sections, $config);
+        $items = $this->findTitles($sections);
 
         if (0 < count($items)) {
             $vars = array();
@@ -288,7 +288,7 @@ class SectionWidgetPlugin extends Plugin
     private function process2($content, $config)
     {
         $sections = $this->findSections($content, $config);
-        $items = $this->findTitles($sections, $config);
+        $items = $this->findTitles($sections);
 
         $menu_idx = 0;
         $content_new = '';
