@@ -244,14 +244,12 @@ class SectionWidgetPlugin extends Plugin
                 $vars['next'] = $vars['last'] = null;
             }
 
-            $is_full_active = $init == SectionWidgetPlugin::FULL_IDX_ID;
-
-            $vars['full'] = $this->item(SectionWidgetPlugin::FULL_IDX_ID,
-                'Show full page (all sections)');
+            $full_page_mitem_msg = $this->grav['language']->translate(['FULL_PAGE_MITEM_MSG']);
+            $vars['full'] = $this->item(SectionWidgetPlugin::FULL_IDX_ID, $full_page_mitem_msg);
 
             $items[] = $this->item(sizeof($items), $vars['full']['title']);
 
-            if ($is_full_active) {
+            if ($init == SectionWidgetPlugin::FULL_IDX_ID) {
                 $current_id = count($items) - 1;
             } else {
                 $current_id = intval($init);
