@@ -249,7 +249,7 @@ class SectionWidgetPlugin extends Plugin
 
             $items[] = $this->item(sizeof($items), $vars['full']['title']);
 
-            if ($init == SectionWidgetPlugin::FULL_IDX_ID) {
+            if ($init == SectionWidgetPlugin::INITIAL_ALL_SECTIONS) {
                 $current_id = count($items) - 1;
             } else {
                 $current_id = intval($init);
