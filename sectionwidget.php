@@ -41,7 +41,7 @@ class SectionWidgetPlugin extends Plugin
     const DEFAULT_SEPARATOR   = '======';
 
     /** The section to show by default (0-based index)*/
-    const INITIAL_SECTION_YAML = 'initial_section';
+    const INITIAL_SECTION_YAML = 'initial';
     const DEFAULT_INITIAL_SECTION = 0;               // 'all' also supported
     const INITIAL_ALL_SECTIONS = 'full';
 

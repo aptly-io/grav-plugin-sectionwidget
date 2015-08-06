@@ -89,7 +89,7 @@ enabled: true                                        # enabled by default
 built_in_css: true                                   # use the build-in css
 marker: ======                                       # the section marker
 controls: [ first, prev, fullmenu, next, last]       # controls to show
-initial_section: 0                                   # supports full as well (whole page visible)
+initial: 0                                   # supports full as well (whole page visible)
 
 ```
 
@@ -98,7 +98,7 @@ initial_section: 0                                   # supports full as well (wh
   * `first`, `prev`, `next` and `last` are navigation button controls
   * `fullmenu` is a drop down control from which to select a section
      The last menu item does not corresponds with a particular section: it shows the whole pages at once. 
-* `initial_section` has the value of the shown section when the page is opened.
+* `initial` has the value of the shown section when the page is opened.
   The value `full` with show all sections; the whole page.
 
 
@@ -117,7 +117,7 @@ does not end up in its own section; it's shown in from of each single section.
 
 Here's the markdown content that resulted in the [screen shots above](#screenshot).
 It illustrates:
-* The whole page is opened; all sections are visible due to the option `initial_section: full` 
+* The whole page is opened; all sections are visible due to the option `initial: full` 
 * Some content in front of the first section marker
 * The use of a title right after the section marker (`Section 2 Most work` and `Footnotes`)
 * Three sections (The footnotes is a separate section)
@@ -127,7 +127,7 @@ It illustrates:
 title: Test SectionWidget English
 icon: bomb
 sectionwidget:
-  initial_section: full
+  initial: full
 ---
 The summery text
 
