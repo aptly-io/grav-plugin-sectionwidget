@@ -19,9 +19,9 @@ function sectionwidgetHandleSelection(sectionId)
         sectionId = sectionwidgetId - 1; break;
     case sectionwidgetNEXT_IDX_ID:
         if (sectionwidgetId < sectionwidgetInfo.length - 2) {
-            sectionId = sectionwidgetId + 1; // avoid 'next' into full page
+            sectionId = sectionwidgetId + 1;
         } else {
-            return false;
+            return false; // Avoid 'next' into full page
         }
         break;
     case sectionwidgetALL_IDX_ID:
@@ -36,7 +36,8 @@ function sectionwidgetHandleSelection(sectionId)
             for (var i = 0; i < sectionDivs.length; i++) {
                 $(sectionDivs[i]).fadeIn("slow");
             }
-        } else {
+        } else if (0 <= sectionId && sectionId < sectionwidgetInfo.length) {
+            // show specific section
             var sectionDivs = document.getElementsByClassName("sw_hideable");
             for (var i = 0; i < sectionDivs.length; i++) {
                 $(sectionDivs[i]).hide();
@@ -46,14 +47,18 @@ function sectionwidgetHandleSelection(sectionId)
             var sectionDiv = document.getElementById(id);
             $(sectionDiv).fadeIn("slow");
 
+            // update prev/next titles
             if (0 < sectionId) {
                 $('.sw_prev_control').children(":first").prop('title', sectionwidgetInfo[sectionId - 1].title);
             }
             if (sectionId < sectionwidgetInfo.length - 1) {
                 $('.sw_next_control').children(":first").prop('title', sectionwidgetInfo[sectionId + 1].title);
             }
+        } else {
+            return false;
         }
 
+        // update active item
         $('.sw_menu_control').children(":first").text(sectionwidgetInfo[sectionId].title);
         var items = document.getElementsByClassName("dropdown-menu-item");
         for (var i = 0; i < items.length; i++) {
