@@ -49,22 +49,24 @@ function sectionwidgetHandleSelection(sectionId)
 
             // update prev/next titles
             if (0 < sectionId) {
-                $('.sw_prev_control').children(":first").prop('title', sectionwidgetInfo[sectionId - 1].title);
+                var c = $('.sw_prev_control').children(":first-child");
+                $(c).prop('title', sectionwidgetInfo[sectionId - 1].title);
             }
             if (sectionId < sectionwidgetInfo.length - 1) {
-                $('.sw_next_control').children(":first").prop('title', sectionwidgetInfo[sectionId + 1].title);
+                var c = $('.sw_next_control').children(":first-child");
+                $(c).prop('title', sectionwidgetInfo[sectionId + 1].title);
             }
         } else {
             return false;
         }
 
         // update active item
-        $('.sw_menu_control').children(":first").text(sectionwidgetInfo[sectionId].title);
+        $('.sw_menu_control').children(":first-child").text(sectionwidgetInfo[sectionId].title);
         var items = document.getElementsByClassName("dropdown-menu-item");
         for (var i = 0; i < items.length; i++) {
-            $(items[i]).children(":first").removeClass("active");
+            $(items[i]).children(":first-child").removeClass("active");
         }
-        $(items[sectionId]).children(":first").addClass("active");
+        $(items[sectionId]).children(":first-child").addClass("active");
 
         sectionwidgetId = sectionId;
     }
