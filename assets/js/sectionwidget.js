@@ -36,6 +36,9 @@ function sectionwidgetHandleSelection(sectionId)
             for (var i = 0; i < sectionDivs.length; i++) {
                 $(sectionDivs[i]).fadeIn("slow");
             }
+
+            updateGoogleMaps();
+
         } else if (0 <= sectionId && sectionId < sectionwidgetInfo.length) {
             // show specific section
             var sectionDivs = document.getElementsByClassName("sw_hideable");
@@ -56,6 +59,9 @@ function sectionwidgetHandleSelection(sectionId)
                 var c = $('.sw_next_control').children(":first-child");
                 $(c).prop('title', sectionwidgetInfo[sectionId + 1].title);
             }
+
+            updateGoogleMaps();
+
         } else {
             return false;
         }
@@ -87,5 +93,14 @@ function sectionwidgetInit(sectionInfo, initialSectionIdx)
         sectionwidgetInfo = sectionInfo;
         sectionwidgetId = -1; // make sure updates happen
         sectionwidgetHandleSelection(initialSectionIdx);
+    }
+}
+
+
+/** Let GoogleMaps plugin update its google map*/
+function updateGoogleMaps()
+{
+    if (typeof gm_updateMaps == 'function') {
+        gm_updateMaps(); // Hack for the GoogleMap plug-in: make sure maps are refreshed
     }
 }

@@ -1,3 +1,9 @@
+# v0.1.4
+## 07/08/2015
+
+1. [](#improved)
+    * Call gm_updateMaps() when a section is made visible
+
 # v0.1.3
 ## 07/08/2015
 

@@ -3,7 +3,7 @@
 ## About
 
 `SectionWidget` is a plugin for [**Grav**](http://getgrav.org).
-This readme describes version 0.1.3.
+This readme describes version 0.1.4.
 This plugin splits, with special _section marker_, large content into sections. Only one or all sections are visible at a time.
 The content of a section is up to the author.
 It creates a configurable HTML widget that lets one navigate to the first, previous, next or last section.
