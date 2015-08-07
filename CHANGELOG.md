@@ -1,3 +1,10 @@
+# v0.1.3
+## 07/08/2015
+
+1. [](#improved)
+    * Updated screendumps and readme
+    * Fix next/prev update for multiple section widgets
+
 # v0.1.2
 ## 07/08/2015
 

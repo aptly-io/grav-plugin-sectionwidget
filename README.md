@@ -3,8 +3,8 @@
 ## About
 
 `SectionWidget` is a plugin for [**Grav**](http://getgrav.org).
-This readme describes version 0.1.2.
-The plugin splits, with special _section marker_, large content into sections.
+This readme describes version 0.1.3.
+This plugin splits, with special _section marker_, large content into sections. Only one or all sections are visible at a time.
 The content of a section is up to the author.
 It creates a configurable HTML widget that lets one navigate to the first, previous, next or last section.
 Or a drop down menu that jumps directly into a specific section.
@@ -18,12 +18,12 @@ Your reasons for splitting content into sections might be:
 * The content type makes clicking next, next, next ... more natural (e.g. a series of lyrics)
 * ...
 
-These screen shots gives you an idea how this might look like. The page is opened with all sections visible.
+These screen shots gives you an idea how this might look like. First the page is opened with all sections visible.
 
 <a name="screenshot">
 ![Screen shot of the SectionWidget Plugin in action](assets/screenshot1.png "GroupWidget screen shot")
 
-Here section two is selected. The pull down menu highlights the active section.
+Here section two is active (highlighted in the pull down menu). The user is about to select section 3 (Footnotes).
 
 ![Screen shot of the SectionWidget Plugin in action](assets/screenshot2.png "GroupWidget screen shot")
 </a>
@@ -36,6 +36,13 @@ FontAwesome 4.4.0 is used for showing the "full" control in the widget
 [templates/sectionwidget.html.twig](templates/partials/sectionwidget.html.twig))
 
 
+### Note
+
+You might be interested in my other Grav plugins:
+ * [GoogleMaps](https://github.com/aptly-io/grav-plugin-googlemaps)
+ * [GroupWidget](https://github.com/aptly-io/grav-plugin-groupwidget)
+
+
 ## Issues
 
 Please open a new [issue][issues] for defects or new functionality requests.
@@ -45,12 +52,16 @@ Please open a new [issue][issues] for defects or new functionality requests.
 
 Here are some limitation:
 
-* You can only have one section widget per page
-  (so it does not make much sense for modular pages).
+* You can only have one set of sections per page;
+  so it does not work for modular pages where each module needs its HTML section widget.
+  You can however have different HTML section widgets on a page to control one set of sections.
+  An extensive widget at the top and a simple one at the bottom of the page is therefore possible.
 * The section plugin does not integrate perfectly with the similar named
   [GroupWidget](https://github.com/aptly-io/grav-plugin-groupwidget) plugin.
-* Sections don't open up automatically when selecting a link inside these from the
-  [TOC](https://github.com/sommerregen/grav-plugin-toc/blob/master/README.md) plugin.
+* Sections don't open up automatically when a link inside these was targetted.
+  This might be annoying when used in combination with
+  the [TOC](https://github.com/sommerregen/grav-plugin-toc/blob/master/README.md) plugin
+  or footnotes (with markdown extra).
 
 
 ## Installation and Updates
@@ -122,15 +133,16 @@ initial: 0                                           # supports full as well (wh
 ### The section marker
 
 The content of a section is everything between 2 section markers (or the end of the file).
-This marker is specified with the `marker` (by default six consecutive equals signs `======`).
+This marker is specified with the `marker` configuration (by default six consecutive equals signs `======`).
 The menu items in the drop down menu that represent each section,
 are taken from the first `H<x>` element after the section marker that is not empty.
 If a section does not contain any header element,
 or on the contrary multiple titled paragraphs,
-put a descriptive title right after the section marker.
+put a descriptive title right after the section marker (see the simplified example markdown below).
 
 The markdown content right before the very first section marker,
 does not end up in its own section; it's shown in from of each single section.
+In this part is typically the page summary, a main title, the TOC etc.
 
 Here's the markdown content that resulted in the [screen shots above](#screenshot).
 It illustrates:
@@ -143,6 +155,9 @@ It illustrates:
 ---
 title: Test SectionWidget English
 icon: bomb
+toc:
+  title: false
+  baselevel: 3
 sectionwidget:
   initial: full
 ---
@@ -155,20 +170,19 @@ The intro text the waterfall is not agile[^global]
 [TOC]
 
 ======
-### Section 1 Investigation/Requirements
-The introduction text
+### Requirements
+The requirements text
 
 ====== Section 2 Most work
-### Analysis/Design phase
+### Design phase
 The design text
 
-### Implementation/deployment
+### Implementation
 The implementation text[^section2]
 
 ======Footnotes
 [^global]: note global
 [^section2]: note section 2
-
 ```
 
 

@@ -5,18 +5,16 @@
 /**
  * SectionWidget is a Grav plugin
  *
- * This plugin splits, at special markers, large content in sections. Only one section is visible at a time.
+ * This plugin splits, with special section markers, large content into sections. Only one or all sections are visible at a time.
  *
  * Licensed under MIT, see LICENSE.
  *
  * @package     SectionWidget
- * @version     0.1.2
+ * @version     0.1.3
  * @link        <https://github.com/aptly-io/grav-plugin-sectionwidget>
  * @author      Francis Meyvis <https://aptly.io/contact>
  * @copyright   2015, Francis Meyvis
  * @license     MIT <http://opensource.org/licenses/MIT>
- *
- * @todo have a page's active section in a cookie (to later open with the last read section)
  */
 
 namespace Grav\Plugin;     // use this namespace to avoids bin/gpm fails
